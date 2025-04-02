@@ -1,0 +1,29 @@
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+
+# Download required NLTK resources
+nltk.download('punkt')
+nltk.download('stopwords')
+
+# Load stop words
+stop_words = set(stopwords.words('english'))
+
+# Read input file
+with open('to_filt_text.txt', "r") as f:
+    words = f.read()
+
+# Tokenize words instead of using split()
+words_list = word_tokenize(words)
+
+filtered_sentence = []
+
+# Open file for writing
+with open('to_write_file.txt', 'w') as write_file:
+    for w in words_list:
+        if w.lower() not in stop_words:  # Convert to lowercase to match stop words
+            filtered_sentence.append(w)
+            print(filtered_sentence)  # Debugging: check output
+            write_file.write(w + " ")  # Write to file
+
+print("Filtering complete. Check 'to_write_file.txt'.")
